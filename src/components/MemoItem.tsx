@@ -14,7 +14,7 @@ export default function MemoItem(props: any) {
     maxWidth: 900,
   }));
 
-  const handleDeleteMemo = (event) => {
+  const handleDeleteMemo = (event: any) => {
     const value = event.target.value;
     console.log(value)
     props.handleDeleteMemo(value);

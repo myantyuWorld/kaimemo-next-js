@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Paper, Stack, Typography, styled } from "@mui/mate
 import MemoItem from "./MemoItem";
 
 export default function MemoList(props: any) {
-  const handleDeleteMemo = (index) => {
+  const handleDeleteMemo = (index: number) => {
     props.handleDeleteMemo(index)
   }
   return (
