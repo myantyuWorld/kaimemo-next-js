@@ -42,6 +42,10 @@ export default function Home() {
     }])
   }
 
+  const handleRegistMemo = (data: { category: string; description: string; deleted: boolean; }) => {
+    setMemoList([...memoList, data])
+  }
+
   // 子→親
   // https://qiita.com/aliceroot0678/items/e4eabcbe3f9f79cada55
   const handleDeleteMemo = (selectedIndex: number) => {
@@ -56,8 +60,7 @@ export default function Home() {
         <title>Kaimemo!</title>
       </Head>
       <Container maxWidth="md">
-        <InputMemo></InputMemo>
-        <Button onClick={handleClick} variant='contained'>test button</Button>
+        <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
         <MemoList data={memoList} handleDeleteMemo={handleDeleteMemo}></MemoList>
       </Container>
     </>

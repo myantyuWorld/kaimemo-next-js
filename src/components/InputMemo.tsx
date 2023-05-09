@@ -3,8 +3,9 @@ import { Avatar, Button, Grid, TextField, ToggleButton, ToggleButtonGroup } from
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 
-export default function InputMemo() {
+export default function InputMemo(props) {
   const [alignment, setAlignment] = React.useState('food');
+  const [description, setDescription] = React.useState("")
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -12,11 +13,20 @@ export default function InputMemo() {
   ) => {
     setAlignment(newAlignment);
   };
+
+  const handleRegistMemo = () => {
+    props.handleRegistMemo({
+      category: alignment,
+      description: description,
+      deleted: false
+    })
+    setDescription("")
+  }
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={7}>
-          <TextField id="standard-basic" label="Standard" variant="standard" />
+          <TextField id="standard-basic" label="Standard" variant="standard" value={description} onChange={(e) => setDescription(e.target.value)}/>
         </Grid>
         <Grid item xs={3}>
           <ToggleButtonGroup
@@ -27,11 +37,11 @@ export default function InputMemo() {
             aria-label="Platform"
           >
             <ToggleButton value="food"><LocalDiningIcon/></ToggleButton>
-            <ToggleButton value="necesary"><SoapIcon/></ToggleButton>
+            <ToggleButton value="soap"><SoapIcon/></ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained">登録</Button>
+          <Button variant="contained" onClick={handleRegistMemo}>登録</Button>
         </Grid>
       </Grid>
     </>
