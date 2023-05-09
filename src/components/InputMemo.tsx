@@ -3,7 +3,7 @@ import { Avatar, Button, Grid, TextField, ToggleButton, ToggleButtonGroup } from
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 
-export default function InputMemo(props) {
+export default function InputMemo(props: { handleRegistMemo: (arg0: { category: string; description: string; deleted: boolean; }) => void; }) {
   const [alignment, setAlignment] = React.useState('food');
   const [description, setDescription] = React.useState("")
 

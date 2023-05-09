@@ -31,7 +31,7 @@ export default function MemoItem(props: any) {
       <Stack spacing={2} direction="row" alignItems="center">
         <Avatar>
           {
-            props.data.category === 'food' ? <LocalDiningIcon /> : <SoapIcon/>
+            props.data.category === 'food' ? <LocalDiningIcon /> : <SoapIcon />
           }
         </Avatar>
         <Typography noWrap fontSize={14}>{props.data.description}</Typography>
