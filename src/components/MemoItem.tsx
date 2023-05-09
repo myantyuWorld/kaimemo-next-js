@@ -1,0 +1,42 @@
+import { Avatar, Box, Button, Paper, Stack, Typography, styled } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import SoapIcon from '@mui/icons-material/Soap';
+
+export default function MemoItem(props: any) {
+  console.log(props)
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    maxWidth: 900,
+  }));
+
+  const handleDeleteMemo = (event) => {
+    const value = event.target.value;
+    console.log(value)
+    props.handleDeleteMemo(value);
+  };
+
+  return (
+    <Item
+      sx={{
+        my: 1,
+        mx: 'auto',
+        p: 1,
+      }}
+    >
+      <Stack spacing={2} direction="row" alignItems="center">
+        <Avatar>
+          {
+            props.data.category === 'food' ? <LocalDiningIcon /> : <SoapIcon/>
+          }
+        </Avatar>
+        <Typography noWrap fontSize={14}>{props.data.description}</Typography>
+        <Button variant="contained" onClick={handleDeleteMemo}><DeleteForeverIcon /></Button>
+      </Stack>
+    </Item>
+  )
+}
