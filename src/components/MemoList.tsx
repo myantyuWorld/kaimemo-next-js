@@ -8,7 +8,7 @@ export default function MemoList(props: any) {
   return (
     <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
       {props.data.map((item: any, index: number) => (
-        <MemoItem data={item} handleDeleteMemo={() => handleDeleteMemo(index)}></MemoItem>
+        <MemoItem key={index} data={item} handleDeleteMemo={() => handleDeleteMemo(index)}></MemoItem>
       ))}
     </Box>
   )
