@@ -16,7 +16,6 @@ export default function Home() {
   const { data, error } = useSWR('/api/memo', fetcher)
 
   const handleRegistMemo = (data: { category: string; description: string; deleted: boolean; }) => {
-    setMemoList([...memoList, data])
   }
 
   // 子→親
