@@ -4,7 +4,6 @@ import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 
 export default function MemoItem(props: any) {
-  console.log(props)
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,

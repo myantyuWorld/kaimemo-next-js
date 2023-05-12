@@ -4,6 +4,8 @@ import { Button, Container } from '@mui/material';
 
 import InputMemo from '../components/InputMemo';
 import MemoList from '../components/MemoList';
+import useSWR from 'swr'
+
 
 export default function Home() {
   const _memoList = [
@@ -33,7 +35,13 @@ export default function Home() {
       deleted: false
     },
   ]
-  const [memoList, setMemoList] = React.useState(_memoList)
+
+  // https://zenn.dev/uttk/articles/b3bcbedbc1fd00
+  const fetcher = (url: string): Promise<any> => fetch(url).then(res => res.json());
+  const { data, error } = useSWR('/api/memo', fetcher)
+
+  // const [memoList, setMemoList] = React.useState(_memoList)
+  const [memoList, setMemoList] = React.useState(data.data)
   const handleClick = () => {
     setMemoList([...memoList, {
       category: "soap",
@@ -53,6 +61,9 @@ export default function Home() {
       memoList.filter((memo, index) => (index != selectedIndex))
     )
   }
+
+  if (error)return <div>failed to load</div>
+	if (!data)return <div>loading...</div>
 
   return (
     <>
