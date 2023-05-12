@@ -15,7 +15,6 @@ export default function MemoItem(props: any) {
 
   const handleDeleteMemo = (event: any) => {
     const value = event.target.value;
-    console.log(value)
     props.handleDeleteMemo(value);
   };
 
@@ -30,10 +29,10 @@ export default function MemoItem(props: any) {
       <Stack spacing={2} direction="row" alignItems="center">
         <Avatar>
           {
-            props.data.category === 'food' ? <LocalDiningIcon /> : <SoapIcon />
+            props.data.mmsb === '1' ? <LocalDiningIcon /> : <SoapIcon />
           }
         </Avatar>
-        <Typography noWrap fontSize={14}>{props.data.description}</Typography>
+        <Typography noWrap fontSize={14}>{props.data.mmnm}</Typography>
         <Button variant="contained" onClick={handleDeleteMemo}><DeleteForeverIcon /></Button>
       </Stack>
     </Item>

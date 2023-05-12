@@ -1,35 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  res.status(200).json({"data" : [
-    {
-      category: "food",
-      description: "ビール",
-      deleted: false
-    },
-    {
-      category: "food",
-      description: "アスパラガス",
-      deleted: false
-    },
-    {
-      category: "food",
-      description: "納豆",
-      deleted: false
-    },
-    {
-      category: "soap",
-      description: "猫の餌",
-      deleted: false
-    },
-    {
-      category: "soap",
-      description: "猫トイレシート",
-      deleted: false
-    },
-  ]})
+  const fetcher = (url: string): Promise<any> => fetch(url).then(res => res.json());
+  const API_URL = 'http://os3-357-11662.vs.sakura.ne.jp:18083/rakuzaim08/vue/memo/index'
+
+  const data = await fetcher(API_URL)
+  res.status(200).json({"data" : data})
 }
