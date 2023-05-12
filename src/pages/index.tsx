@@ -15,7 +15,19 @@ export default function Home() {
   // [{"mmid":1183,"mmsb":1,"mmnm":"袋とじ","count":0,"deleteFlg":0}]
   const { data, error } = useSWR('/api/memo', fetcher)
 
-  const handleRegistMemo = (data: { category: string; description: string; deleted: boolean; }) => {
+  const postData = (data: { mmsb: string; mmnm: string; }) => {
+    fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
+      mode: "cors",
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ mmsb: data.mmsb, mmnm:data.mmnm }),
+    });
+  }
+
+  const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {
+    postData(data)
   }
 
   // 子→親
