@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  dva-01-001
+
+  Sample SAM Template for dva-01-001
+
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  OptionsFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: src/
+        Handler: app.options_handler
+        Role: !GetAtt KaimemoFunctionRole.Arn
+        Runtime: python3.9
+        Events:
+          loginOptions:
+            Type: Api
+            Properties:
+              Path: /{cors+}
+              Method: OPTIONS
+  KaimemoPostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: memo/
+      Handler: app.post_handler
+      Role: !GetAtt KaimemoFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        Kaimemo:
+          Type: Api
+          Properties:
+            Path: /memo
+            Method: post
+  KaimemoGetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: memo/
+      Handler: app.get_handler
+      Role: !GetAtt KaimemoFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        Kaimemo:
+          Type: Api
+          Properties:
+            Path: /memo
+            Method: get
+            
+  KaimemoFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: HelloWorldFunctionPolicies
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:List*
+                  - dynamodb:DescribeReservedCapacity*
+                  - dynamodb:DescribeLimits
+                  - dynamodb:DescribeTimeToLive
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  #- dynamodb:BatchGet*
+                  #- dynamodb:DescribeStream
+                  #- dynamodb:DescribeTable
+                  #- dynamodb:Get*
+                  - dynamodb:Scan
+                  #- dynamodb:BatchWrite*
+                  #- dynamodb:CreateTable
+                  # - dynamodb:Delete*
+                  - dynamodb:Update*
+                  - dynamodb:PutItem
+                Resource: !GetAtt Table.Arn
+            
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: mmid
+        Type: String
+      #ProvisionedThroughput:
+      TableName: memo
+      
+      
+  #SampleTable:
+  #  Type: AWS::DynamoDB::Table
+  #  Properties:
+  #    AttributeDefinitions:
+  #      - AttributeName: dt
+  #        AttributeType: S
+  #    BillingMode: PAY_PER_REQUEST
+  #    KeySchema:
+  #      - AttributeName: dt
+  #        KeyType: HASH
+  #    TableName: !Sub ${Prefix}-SampleTable
