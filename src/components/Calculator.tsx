@@ -39,9 +39,9 @@ export default function Calculator() {
 
   function calculate() {
     if (operator === "-") {
-      setTotal(parseFloat(total) - parseFloat(num));
+      setTotal(parseFloat(total.toString()) - parseFloat(num.toString()));
     } else if (operator === "+") {
-      setTotal(parseFloat(total) + parseFloat(num));
+      setTotal(parseFloat(total.toString()) + parseFloat(num.toString()));
     }
   }
 
