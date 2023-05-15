@@ -37,7 +37,7 @@ export default function MemoItem(props: any) {
             props.data.mmsb === 'food' ? <LocalDiningIcon /> : <SoapIcon />
           }
         </Avatar>
-        <Typography noWrap fontSize={14}>{props.data.mmnm}</Typography>
+        <Typography noWrap fontSize={14} className={isDisabled ? "isDisabled" : ""}>{props.data.mmnm}</Typography>
         <Button variant="outlined" color="error" onClick={handleDeleteMemo} disabled={isDisabled} startIcon={<DeleteForeverIcon />}>削除</Button>
       </Stack>
     </Item>
