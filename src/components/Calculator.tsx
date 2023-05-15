@@ -28,7 +28,7 @@ export default function Calculator() {
     setNum(0);
   }
 
-  function operatorHandler(e) {
+  function operatorHandler(e: { target: { value: any; }; }) {
     let operatorInput = e.target.value;
     setOperator(operatorInput);
     setOldNum(num);
