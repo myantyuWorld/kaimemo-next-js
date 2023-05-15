@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Head from 'next/head'
 import { Button, Container, Fab, Typography } from '@mui/material';
-import CalculateIcon from '@mui/icons-material/Calculate';
 
 import InputMemo from '../components/InputMemo';
 import MemoList from '../components/MemoList';
 import useSWR from 'swr'
 import FilterMemo from '../components/FilterMemo';
+import CalculateButton from '../components/CaluclationButton';
 
 
 export default function Home() {
@@ -53,12 +53,7 @@ export default function Home() {
       body: JSON.stringify({ mmid: mmid }),
     });
   }
-  const fabStyle = {
-    position: 'absolute',
-    top: 250,
-    right: 16,
-  };
-  
+
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
@@ -72,9 +67,8 @@ export default function Home() {
         <Typography variant='h5' mt={1}>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
         <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
-        <Fab color="primary" aria-label="add" sx={fabStyle}>
-        <CalculateIcon />
-      </Fab>
+        <CalculateButton/>
+        
       <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
     </Container >
     </>
