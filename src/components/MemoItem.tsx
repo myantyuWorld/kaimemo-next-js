@@ -38,7 +38,7 @@ export default function MemoItem(props: any) {
           }
         </Avatar>
         <Typography noWrap fontSize={14} className={isDisabled ? "isDisabled" : ""}>{props.data.mmnm}</Typography>
-        <Button variant="outlined" color="error" onClick={handleDeleteMemo} disabled={isDisabled} startIcon={<DeleteForeverIcon />}>削除</Button>
+        <Button variant="outlined" color="error" onClick={handleDeleteMemo} disabled={isDisabled} startIcon={<DeleteForeverIcon />}></Button>
       </Stack>
     </Item>
   )
