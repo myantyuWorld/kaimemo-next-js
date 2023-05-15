@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Head from 'next/head'
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 
 import InputMemo from '../components/InputMemo';
 import MemoList from '../components/MemoList';
@@ -57,6 +57,7 @@ export default function Home() {
         <title>Kaimemo!</title>
       </Head>
       <Container maxWidth="md">
+        <Typography variant='h5' mt={1}>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
         <FilterMemo/>
         <MemoList data={data} handleDeleteMemo={handleDeleteMemo}></MemoList>
