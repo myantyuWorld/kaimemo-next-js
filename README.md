@@ -3,6 +3,9 @@
 ## memo
 [Next.jsにMaterial UIを組み込んだ環境を作る](https://zenn.dev/ttani/articles/next-materialui-setup#%E8%A3%9C%E8%B6%B3%EF%BC%9A%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89)
 
+## sam local start-api
+sam local start-api -p 5000 --docker-network lambda-local --skip-pull-image --debug
+
 ## Introduction
 This project is a template for Next.js development environment using TypeScript built with Docker Compose.
 
