@@ -28,18 +28,6 @@ export default function Calculator() {
     setNum(0);
   }
 
-  function porcentagem(e) {
-    setNum(num / 100);
-  }
-
-  function changeSign() {
-    if (num > 0) {
-      setNum(-num);
-    } else {
-      setNum(Math.abs(num));
-    }
-  }
-
   function operatorHandler(e) {
     let operatorInput = e.target.value;
     setOperator(operatorInput);
@@ -50,12 +38,8 @@ export default function Calculator() {
   }
 
   function calculate() {
-    if (operator === "/") {
-      setTotal(parseFloat(oldNum) / parseFloat(num));
-    } else if (operator === "X") {
-      setTotal(parseFloat(oldNum) * parseFloat(num));
-    } else if (operator === "-") {
-      setTotal(total - parseFloat(num));
+    if (operator === "-") {
+      setTotal(parseFloat(total) - parseFloat(num));
     } else if (operator === "+") {
       setTotal(parseFloat(total) + parseFloat(num));
     }
