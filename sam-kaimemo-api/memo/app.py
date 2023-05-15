@@ -1,6 +1,7 @@
 import json
 from logging import Logger
 import boto3
+from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
 import datetime
 
@@ -96,6 +97,43 @@ def post_handler(event, context):
         "statusCode": 200,
         'headers': headers,
         "body": json.dumps(result)
+    }
+
+    return response
+
+def delete_handler(event, context):
+    if event['httpMethod'] == 'OPTIONS':
+        return create_success_response(
+            { 'message': 'successfully: called options method.' },
+            methods='GET,OPTIONS,PUT,POST,DELETE'
+        )
+    body = json.loads(event["body"])
+    print("delete method!")
+    print(body["mmid"])
+
+    update_key = {
+        "mmid": body["mmid"]["S"]
+    }
+    try:
+
+        result = table.update_item(
+            Key=update_key,
+            UpdateExpression='set deleted = :deleted',
+            ExpressionAttributeValues={':deleted': '1'},
+            ReturnValues="UPDATED_NEW"
+        )
+    except ClientError as err:
+        print(err.response['Error']['Code'], err.response['Error']['Message'])
+        raise
+    headers = {
+        'Access-Control-Allow-Headers' : 'Content-Type',
+        'Access-Control-Allow-Origin'  : '*',
+        'Access-Control-Allow-Methods' : 'POST'
+    }
+    response = {
+        "statusCode": 200,
+        'headers': headers,
+        "body": result
     }
 
     return response

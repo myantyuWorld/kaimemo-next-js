@@ -49,6 +49,19 @@ Resources:
           Properties:
             Path: /memo
             Method: get
+  KaimemoDeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: memo/
+      Handler: app.delete_handler
+      Role: !GetAtt KaimemoFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        Kaimemo:
+          Type: Api
+          Properties:
+            Path: /memo
+            Method: delete
             
   KaimemoFunctionRole:
     Type: AWS::IAM::Role
