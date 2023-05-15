@@ -16,7 +16,7 @@ export default function Home() {
   // [{"mmid":1183,"mmsb":1,"mmnm":"袋とじ","count":0,"deleteFlg":0}]
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo"
   // const { data, error } = useSWR('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', fetcher)
-  const { data, error } = useSWR(API_URL, fetcher,  { refreshInterval: 5000 })
+  const { data, error } = useSWR(API_URL, fetcher,  { refreshInterval: 7000 })
 
   const postData = (data: { mmsb: string; mmnm: string; }) => {
     // fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
