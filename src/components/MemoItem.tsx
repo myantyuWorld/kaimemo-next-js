@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Paper, Stack, Typography, styled } from "@mui/mate
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
+import { useState } from "react";
 
 export default function MemoItem(props: any) {
   const Item = styled(Paper)(({ theme }) => ({
@@ -13,10 +14,14 @@ export default function MemoItem(props: any) {
     maxWidth: 1000,
   }));
 
+  const [isDisabled, setIsDisabled] = useState(false)
+
   const handleDeleteMemo = (event: any) => {
+    setIsDisabled(true)
     const value = event.target.value;
     props.handleDeleteMemo(value);
   };
+  
 
   return (
     <Item
@@ -33,7 +38,7 @@ export default function MemoItem(props: any) {
           }
         </Avatar>
         <Typography noWrap fontSize={14}>{props.data.mmnm}</Typography>
-        <Button variant="outlined" color="error" onClick={handleDeleteMemo} startIcon={<DeleteForeverIcon />}>削除</Button>
+        <Button variant="outlined" color="error" onClick={handleDeleteMemo} disabled={isDisabled} startIcon={<DeleteForeverIcon />}>削除</Button>
       </Stack>
     </Item>
   )

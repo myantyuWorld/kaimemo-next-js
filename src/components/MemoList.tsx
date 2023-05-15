@@ -14,7 +14,7 @@ export default function MemoList(props: any) {
           height: 500,
           overflowY: "scroll", }}>
           {props.data.map((item: any, index: number) => (
-            <MemoItem key={index} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
+            <MemoItem key={item.mmid} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
           ))}
         </Box>
       </CardContent>
