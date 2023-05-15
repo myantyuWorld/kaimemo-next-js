@@ -13,7 +13,7 @@ export default function Home() {
 
   // http://os3-357-11662.vs.sakura.ne.jp:18083/rakuzaim08/vue/memo/index
   // [{"mmid":1183,"mmsb":1,"mmnm":"袋とじ","count":0,"deleteFlg":0}]
-  const { data, error } = useSWR('/api/memo', fetcher)
+  const { data, error } = useSWR('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', fetcher)
 
   const postData = (data: { mmsb: string; mmnm: string; }) => {
     fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
@@ -46,7 +46,7 @@ export default function Home() {
       </Head>
       <Container maxWidth="md">
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-        <MemoList data={data.data} handleDeleteMemo={handleDeleteMemo}></MemoList>
+        <MemoList data={data} handleDeleteMemo={handleDeleteMemo}></MemoList>
       </Container>
     </>
   );
