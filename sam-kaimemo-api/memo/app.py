@@ -112,7 +112,7 @@ def delete_handler(event, context):
     print(body["mmid"])
 
     update_key = {
-        "mmid": body["mmid"]["S"]
+        "mmid": body["mmid"]
     }
     try:
 
@@ -146,6 +146,9 @@ def delete_handler(event, context):
 
 
 def get_handler(event, context):
+    resp = table.scan(
+        FilterExpression=Key('deleted').eq('0')
+    )
     headers = {
             'Access-Control-Allow-Headers' : 'Content-Type',
             'Access-Control-Allow-Origin'  : '*',
@@ -154,7 +157,7 @@ def get_handler(event, context):
     response = {
         "statusCode": 200,
         'headers': headers,
-        "body": json.dumps(client.scan(TableName="memo")['Items'])
+        "body": json.dumps(resp['Items'])
     }
 
     return response
