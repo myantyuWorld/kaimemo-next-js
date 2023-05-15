@@ -13,7 +13,9 @@ export default function MemoList(props: any) {
           flexDirection: "column",
           height: 500,
           overflowY: "scroll", }}>
-          {props.data.map((item: any, index: number) => (
+          {props.data
+            .sort((a: { mmid: number; },b: { mmid: number; }) => a.mmid - b.mmid)
+            .map((item: any, index: number) => (
             <MemoItem key={item.mmid} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
           ))}
         </Box>
