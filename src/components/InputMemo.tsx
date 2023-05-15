@@ -23,7 +23,7 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
   }
   return (
     <>
-      <Grid container spacing={1} mt={1}>
+      <Grid container spacing={0} mt={1}>
         <Grid item xs={12}>
           <Card>
             <CardContent>

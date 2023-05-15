@@ -11,7 +11,7 @@ export default function MemoList(props: any) {
         <Typography mb={1}>memo list</Typography>
         <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 0, 
           flexDirection: "column",
-          height: 450,
+          height: 500,
           overflowY: "scroll", }}>
           {props.data.map((item: any, index: number) => (
             <MemoItem key={index} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
