@@ -10,7 +10,7 @@ export default function Calculator() {
   const [oldNum, setOldNum] = useState(0);
   const [operator, setOperator] = useState();
 
-  function inputNum(e) {
+  function inputNum(e: { target: { value: any; }; }) {
     let input = e.target.value
     if (num === 0) {
       setNum(input);
