@@ -4,7 +4,7 @@ import SoapIcon from '@mui/icons-material/Soap';
 
 export default function FilterMemo() {
   return (
-    <Grid container spacing={2} mt={1}>
+    <Grid container spacing={1} mt={1}>
       <Grid item xs={12}>
         <Card>
           <CardContent>

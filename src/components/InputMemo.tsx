@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Button, Card, Grid, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Avatar, Button, Card, CardContent, Divider, Grid, Stack, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 
@@ -23,24 +23,31 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
   }
   return (
     <>
-      <Grid container spacing={5}>
-        <Grid item xs={7}>
-          <TextField id="standard-basic" label="買い物メモを入力" variant="standard" value={description} onChange={(e) => setDescription(e.target.value)} />
-        </Grid>
-        <Grid item xs={3}>
-          <ToggleButtonGroup
-            color="primary"
-            value={alignment}
-            exclusive
-            onChange={handleChange}
-            aria-label="Platform"
-          >
-            <ToggleButton value="food"><LocalDiningIcon /></ToggleButton>
-            <ToggleButton value="soap"><SoapIcon /></ToggleButton>
-          </ToggleButtonGroup>
-        </Grid>
-        <Grid item xs={2}>
-          <Button variant="outlined" onClick={handleRegistMemo}>Add</Button>
+      <Grid container spacing={1} mt={1}>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={1}>
+                <TextField id="standard-basic" label="買い物メモを入力" variant="standard" value={description} onChange={(e) => setDescription(e.target.value)} />
+                <ToggleButtonGroup
+                  color="primary"
+                  value={alignment}
+                  exclusive
+                  onChange={handleChange}
+                  aria-label="Platform"
+                >
+                  <ToggleButton value="food" size='small'><LocalDiningIcon /></ToggleButton>
+                  <ToggleButton value="soap" size='small'><SoapIcon /></ToggleButton>
+                </ToggleButtonGroup>
+                <Button variant="outlined" onClick={handleRegistMemo} size='small'>+</Button>
+              </Stack>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </>
