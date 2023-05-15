@@ -10,7 +10,7 @@ export default function MemoItem(props: any) {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    maxWidth: 900,
+    maxWidth: 1000,
   }));
 
   const handleDeleteMemo = (event: any) => {
@@ -26,14 +26,14 @@ export default function MemoItem(props: any) {
         p: 1,
       }}
     >
-      <Stack spacing={2} direction="row" alignItems="center">
+      <Stack spacing={2} direction="row" alignItems="center" justifyContent="space-between">
         <Avatar>
           {
             props.data.mmsb === 'food' ? <LocalDiningIcon /> : <SoapIcon />
           }
         </Avatar>
         <Typography noWrap fontSize={14}>{props.data.mmnm}</Typography>
-        <Button variant="contained" onClick={handleDeleteMemo}><DeleteForeverIcon /></Button>
+        <Button variant="outlined" color="error" onClick={handleDeleteMemo} startIcon={<DeleteForeverIcon />}>削除</Button>
       </Stack>
     </Item>
   )

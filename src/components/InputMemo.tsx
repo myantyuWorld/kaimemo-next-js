@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Button, Grid, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Avatar, Button, Card, Grid, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 
@@ -23,9 +23,9 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
   }
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={5}>
         <Grid item xs={7}>
-          <TextField id="standard-basic" label="Standard" variant="standard" value={description} onChange={(e) => setDescription(e.target.value)}/>
+          <TextField id="standard-basic" label="買い物メモを入力" variant="standard" value={description} onChange={(e) => setDescription(e.target.value)} />
         </Grid>
         <Grid item xs={3}>
           <ToggleButtonGroup
@@ -35,12 +35,12 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
             onChange={handleChange}
             aria-label="Platform"
           >
-            <ToggleButton value="food"><LocalDiningIcon/></ToggleButton>
-            <ToggleButton value="soap"><SoapIcon/></ToggleButton>
+            <ToggleButton value="food"><LocalDiningIcon /></ToggleButton>
+            <ToggleButton value="soap"><SoapIcon /></ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained" onClick={handleRegistMemo}>登録</Button>
+          <Button variant="outlined" onClick={handleRegistMemo}>Add</Button>
         </Grid>
       </Grid>
     </>

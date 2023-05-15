@@ -5,6 +5,7 @@ import { Button, Container } from '@mui/material';
 import InputMemo from '../components/InputMemo';
 import MemoList from '../components/MemoList';
 import useSWR from 'swr'
+import FilterMemo from '../components/FilterMemo';
 
 
 export default function Home() {
@@ -57,6 +58,7 @@ export default function Home() {
       </Head>
       <Container maxWidth="md">
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
+        <FilterMemo/>
         <MemoList data={data} handleDeleteMemo={handleDeleteMemo}></MemoList>
       </Container>
     </>

@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Paper, Stack, Typography, styled } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Paper, Stack, Typography, styled } from "@mui/material";
 import MemoItem from "./MemoItem";
 
 export default function MemoList(props: any) {
@@ -6,10 +6,15 @@ export default function MemoList(props: any) {
     props.handleDeleteMemo(mmid)
   }
   return (
-    <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
-      {props.data.map((item: any, index: number) => (
-        <MemoItem key={index} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
-      ))}
-    </Box>
+    <Card>
+      <CardContent>
+        <Typography mb={1}>memo list</Typography>
+        <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 0 }}>
+          {props.data.map((item: any, index: number) => (
+            <MemoItem key={index} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
+          ))}
+        </Box>
+      </CardContent>
+    </Card>
   )
 }
