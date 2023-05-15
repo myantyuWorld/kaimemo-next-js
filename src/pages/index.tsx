@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head'
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Fab, Typography } from '@mui/material';
+import CalculateIcon from '@mui/icons-material/Calculate';
 
 import InputMemo from '../components/InputMemo';
 import MemoList from '../components/MemoList';
@@ -16,7 +17,7 @@ export default function Home() {
   // [{"mmid":1183,"mmsb":1,"mmnm":"袋とじ","count":0,"deleteFlg":0}]
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo"
   // const { data, error } = useSWR('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', fetcher)
-  const { data, error } = useSWR(API_URL, fetcher,  { refreshInterval: 7000 })
+  const { data, error } = useSWR(API_URL, fetcher, { refreshInterval: 7000 })
 
   const postData = (data: { mmsb: string; mmnm: string; }) => {
     // fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
@@ -26,7 +27,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ mmsb: data.mmsb, mmnm:data.mmnm }),
+      body: JSON.stringify({ mmsb: data.mmsb, mmnm: data.mmnm }),
     });
   }
 
@@ -52,9 +53,15 @@ export default function Home() {
       body: JSON.stringify({ mmid: mmid }),
     });
   }
+  const fabStyle = {
+    position: 'absolute',
+    top: 250,
+    right: 16,
+  };
+  
 
-  if (error)return <div>failed to load</div>
-	if (!data)return <div>loading...</div>
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
 
   return (
     <>
@@ -64,9 +71,12 @@ export default function Home() {
       <Container maxWidth="md">
         <Typography variant='h5' mt={1}>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-        <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory}/>
-        <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
-      </Container>
+        <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
+        <Fab color="primary" aria-label="add" sx={fabStyle}>
+        <CalculateIcon />
+      </Fab>
+      <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
+    </Container >
     </>
   );
 
