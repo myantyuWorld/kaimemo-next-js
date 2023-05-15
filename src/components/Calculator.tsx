@@ -10,7 +10,7 @@ export default function Calculator() {
   const [oldNum, setOldNum] = useState(0);
   const [operator, setOperator] = useState();
 
-  function inputNum(e: { target: { value: any; }; }) {
+  function inputNum(e: any) {
     let input = e.target.value
     if (num === 0) {
       setNum(input);
@@ -28,7 +28,7 @@ export default function Calculator() {
     setNum(0);
   }
 
-  function operatorHandler(e: { target: { value: any; }; }) {
+  function operatorHandler(e: any) {
     let operatorInput = e.target.value;
     setOperator(operatorInput);
     setOldNum(num);
