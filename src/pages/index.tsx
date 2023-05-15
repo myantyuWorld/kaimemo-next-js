@@ -34,6 +34,11 @@ export default function Home() {
     postData(data)
   }
 
+  const [filterCategory, setFilterCategory] = React.useState('food');
+  const handleFilterChange = (newAlignment: string) => {
+    setFilterCategory(newAlignment);
+  };
+
   // 子→親
   // https://qiita.com/aliceroot0678/items/e4eabcbe3f9f79cada55
   const handleDeleteMemo = (mmid: number) => {
@@ -59,8 +64,8 @@ export default function Home() {
       <Container maxWidth="md">
         <Typography variant='h5' mt={1}>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-        <FilterMemo/>
-        <MemoList data={data} handleDeleteMemo={handleDeleteMemo}></MemoList>
+        <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory}/>
+        <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
       </Container>
     </>
   );

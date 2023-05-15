@@ -1,8 +1,16 @@
-import { Button, Card, CardContent, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Button, Card, CardContent, Divider, Grid, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
+import React from "react";
 
-export default function FilterMemo() {
+export default function FilterMemo(props:any) {
+  const handleFilterChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    props.handleFilterChange(newAlignment)
+  };
+
   return (
     <Grid container spacing={0} mt={1}>
       <Grid item xs={12}>
@@ -14,13 +22,17 @@ export default function FilterMemo() {
               justifyContent="center"
               alignItems="center"
               divider={<Divider orientation="vertical" flexItem />}
-              spacing={2}>
-              <Button variant="outlined">
-                <LocalDiningIcon /> : 食費
-              </Button>
-              <Button variant="outlined">
-                <SoapIcon /> : 日用品
-              </Button>
+              spacing={0}>
+              <ToggleButtonGroup
+                  color="primary"
+                  value={props.filterCategory}
+                  exclusive
+                  onChange={handleFilterChange}
+                  aria-label="Platform"
+                >
+                  <ToggleButton value="food" size='large'><LocalDiningIcon /></ToggleButton>
+                  <ToggleButton value="soap" size='large'><SoapIcon /></ToggleButton>
+                </ToggleButtonGroup>
             </Stack>
           </CardContent>
         </Card>
