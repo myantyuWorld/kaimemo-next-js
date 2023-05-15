@@ -29,10 +29,10 @@ export default function MemoItem(props: any) {
       <Stack spacing={2} direction="row" alignItems="center">
         <Avatar>
           {
-            props.data.mmsb.S === 'food' ? <LocalDiningIcon /> : <SoapIcon />
+            props.data.mmsb === 'food' ? <LocalDiningIcon /> : <SoapIcon />
           }
         </Avatar>
-        <Typography noWrap fontSize={14}>{props.data.mmnm.S}</Typography>
+        <Typography noWrap fontSize={14}>{props.data.mmnm}</Typography>
         <Button variant="contained" onClick={handleDeleteMemo}><DeleteForeverIcon /></Button>
       </Stack>
     </Item>

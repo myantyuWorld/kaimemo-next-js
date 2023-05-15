@@ -13,10 +13,13 @@ export default function Home() {
 
   // http://os3-357-11662.vs.sakura.ne.jp:18083/rakuzaim08/vue/memo/index
   // [{"mmid":1183,"mmsb":1,"mmnm":"袋とじ","count":0,"deleteFlg":0}]
-  const { data, error } = useSWR('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', fetcher)
+  const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo"
+  // const { data, error } = useSWR('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', fetcher)
+  const { data, error } = useSWR(API_URL, fetcher)
 
   const postData = (data: { mmsb: string; mmnm: string; }) => {
-    fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
+    // fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
+    fetch(API_URL, {
       mode: "cors",
       method: 'POST',
       headers: {
@@ -34,6 +37,14 @@ export default function Home() {
   // https://qiita.com/aliceroot0678/items/e4eabcbe3f9f79cada55
   const handleDeleteMemo = (mmid: number) => {
     console.log(mmid)
+    fetch(API_URL, {
+      mode: "cors",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ mmid: mmid }),
+    });
   }
 
   if (error)return <div>failed to load</div>
