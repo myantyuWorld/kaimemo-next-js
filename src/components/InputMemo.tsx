@@ -33,11 +33,20 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
     })
     setDescription("")
   }
+
+  const cardStyle = {
+    background:"#fef6e4"
+  }
+
+  const toggleStyle = {
+    background:"#8bd3dd"
+  }
+  
   return (
     <>
       <Grid container spacing={0} mt={1}>
         <Grid item xs={12}>
-          <Card sx={"background-color:#fef6e4"}>
+          <Card sx={cardStyle}>
             <CardMedia
               sx={{ height: 80 }}
               image={alignment == 'food' ? "/article42_img03.jpeg" : "main.jpeg"} 
@@ -67,7 +76,7 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
                   exclusive
                   onChange={handleChange}
                   aria-label="Platform"
-                  sx={"background-color:#8bd3dd"}
+                  sx={toggleStyle}
                 >
                   <ToggleButton value="food"><LocalDiningIcon /></ToggleButton>
                   <ToggleButton value="soap"><SoapIcon /></ToggleButton>

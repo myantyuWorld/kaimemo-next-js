@@ -81,13 +81,17 @@ export default function Home() {
     )
   }
 
+  const containerStyle = {
+    background: "#f3d2c1"
+  }
+
 
   return (
     <>
       <Head>
         <title>Kaimemo!</title>
       </Head>
-      <Container maxWidth="md" sx={"background-color:#f3d2c1"}>
+      <Container maxWidth="md" sx={containerStyle}>
         <Typography variant='h3'>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
         <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />

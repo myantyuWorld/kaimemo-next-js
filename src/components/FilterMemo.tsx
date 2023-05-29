@@ -11,10 +11,17 @@ export default function FilterMemo(props: any) {
     props.handleFilterChange(newAlignment)
   };
 
+  const cardStyle = {
+    background:"#fef6e4"
+  }
+  const toggleStyle = {
+    background:"#8bd3dd"
+  }
+
   return (
     <Grid container spacing={0} mt={1}>
       <Grid item xs={12}>
-        <Card sx={"background-color:#fef6e4"}>
+        <Card sx={cardStyle}>
           <CardContent>
             <Typography mb={1}>フィルター</Typography>
             <Stack
@@ -30,7 +37,7 @@ export default function FilterMemo(props: any) {
                 size="large"
                 onChange={handleFilterChange}
                 aria-label="Platform"
-                sx={"background-color:#8bd3dd"}
+                sx={toggleStyle}
               >
                 <ToggleButton value="food"><LocalDiningIcon /></ToggleButton>
                 <ToggleButton value="soap"><SoapIcon /></ToggleButton>

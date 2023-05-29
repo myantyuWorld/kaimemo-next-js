@@ -15,10 +15,14 @@ export default function MemoList(props: any) {
       props.data
         .sort((a: { mmid: number; }, b: { mmid: number; }) => a.mmid - b.mmid)
 
+  const cardStyle = {
+    background:"#fef6e4"
+  }
+
   return (
     <Grid container spacing={0} mt={1}>
       <Grid item xs={12}>
-        <Card sx={"background-color:#fef6e4"}>
+        <Card sx={cardStyle}>
           <CardContent>
             <Box sx={{
               flexGrow: 1, overflow: 'hidden', px: 0,
