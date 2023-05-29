@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Avatar, Button, Card, CardContent, Divider, Grid, Stack, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
+import CardMedia from '@mui/material/CardMedia';
 
 export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: string; mmnm: string; }) => void; }) {
   const [alignment, setAlignment] = React.useState('food');
@@ -37,6 +38,11 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
       <Grid container spacing={0} mt={1}>
         <Grid item xs={12}>
           <Card>
+            <CardMedia
+              sx={{ height: 80 }}
+              image={alignment == 'food' ? "/article42_img03.jpeg" : "main.jpeg"} 
+              title="green iguana"
+            />
             <CardContent>
               <Stack
                 direction="row"
@@ -45,8 +51,8 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
                 divider={<Divider orientation="vertical" flexItem />}
                 spacing={1}
                 mb={2}>
-                  {message}
-                </Stack>
+                {message}
+              </Stack>
               <Stack
                 direction="row"
                 justifyContent="center"
