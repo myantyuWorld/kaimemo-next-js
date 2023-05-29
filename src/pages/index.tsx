@@ -92,7 +92,7 @@ export default function Home() {
         <title>Kaimemo!</title>
       </Head>
       <Container maxWidth="md" sx={containerStyle}>
-        <Typography variant='h3'>Kaimemo!</Typography>
+        <Typography variant='h2' sx={{color:"#001858"}}>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
         <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
         <CalculateButton />

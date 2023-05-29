@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Button, Card, CardContent, Divider, Grid, Stack, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Avatar, Button, Card, CardContent, Divider, Grid, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 import CardMedia from '@mui/material/CardMedia';
@@ -60,7 +60,7 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
                 divider={<Divider orientation="vertical" flexItem />}
                 spacing={1}
                 mb={2}>
-                {message}
+                <Typography variant='h6' sx={{color:"#001858"}}>{message}</Typography>
               </Stack>
               <Stack
                 direction="row"

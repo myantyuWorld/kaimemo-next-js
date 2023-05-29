@@ -23,7 +23,7 @@ export default function FilterMemo(props: any) {
       <Grid item xs={12}>
         <Card sx={cardStyle}>
           <CardContent>
-            <Typography mb={1}>フィルター</Typography>
+            <Typography variant='h6' sx={{color:"#001858"}} mb={1}>フィルター</Typography>
             <Stack
               direction="row"
               justifyContent="center"
