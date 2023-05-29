@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Head from 'next/head'
-import { Button, Container, Fab, Typography } from '@mui/material';
+import { Box, Button, Container, Fab, Typography } from '@mui/material';
 
 import InputMemo from '../components/InputMemo';
 import MemoList from '../components/MemoList';
 import useSWR from 'swr'
 import FilterMemo from '../components/FilterMemo';
 import CalculateButton from '../components/CaluclationButton';
-
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default function Home() {
   // https://zenn.dev/uttk/articles/b3bcbedbc1fd00
@@ -39,6 +39,23 @@ export default function Home() {
   const handleFilterChange = (newAlignment: string) => {
     setFilterCategory(newAlignment);
   };
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          return 0;
+        }
+        const diff = Math.random() * 10;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   // 子→親
   // https://qiita.com/aliceroot0678/items/e4eabcbe3f9f79cada55
@@ -56,7 +73,14 @@ export default function Home() {
 
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) {
+    return (
+      <Box>
+        <LinearProgress variant="determinate" value={progress} />
+      </Box>
+    )
+  } 
+    
 
   return (
     <>
