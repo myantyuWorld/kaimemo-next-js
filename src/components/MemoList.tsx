@@ -16,9 +16,8 @@ export default function MemoList(props: any) {
         .sort((a: { mmid: number; }, b: { mmid: number; }) => a.mmid - b.mmid)
 
   return (
-    <Card>
+    <Card sx={"background-color:#fef6e4"}>
       <CardContent>
-        <Typography mb={1}>memo list</Typography>
         <Box sx={{
           flexGrow: 1, overflow: 'hidden', px: 0,
           flexDirection: "column",

@@ -37,7 +37,7 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
     <>
       <Grid container spacing={0} mt={1}>
         <Grid item xs={12}>
-          <Card>
+          <Card sx={"background-color:#fef6e4"}>
             <CardMedia
               sx={{ height: 80 }}
               image={alignment == 'food' ? "/article42_img03.jpeg" : "main.jpeg"} 
@@ -58,17 +58,19 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
                 justifyContent="center"
                 alignItems="center"
                 divider={<Divider orientation="vertical" flexItem />}
-                spacing={1}>
+                spacing={2}>
                 <TextField id="standard-basic" label="買い物メモを入力" variant="standard" value={description} onChange={(e) => setDescription(e.target.value)} />
                 <ToggleButtonGroup
-                  color="primary"
+                  color="standard"
+                  size="large"
                   value={alignment}
                   exclusive
                   onChange={handleChange}
                   aria-label="Platform"
+                  sx={"background-color:#8bd3dd"}
                 >
-                  <ToggleButton value="food" size='small'><LocalDiningIcon /></ToggleButton>
-                  <ToggleButton value="soap" size='small'><SoapIcon /></ToggleButton>
+                  <ToggleButton value="food"><LocalDiningIcon /></ToggleButton>
+                  <ToggleButton value="soap"><SoapIcon /></ToggleButton>
                 </ToggleButtonGroup>
                 <Button variant="outlined" onClick={handleRegistMemo} size='small'>+</Button>
               </Stack>

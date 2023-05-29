@@ -79,22 +79,22 @@ export default function Home() {
         <LinearProgress variant="determinate" value={progress} />
       </Box>
     )
-  } 
-    
+  }
+
 
   return (
     <>
       <Head>
         <title>Kaimemo!</title>
       </Head>
-      <Container maxWidth="md">
-        <Typography variant='h5' mt={1}>Kaimemo!</Typography>
+      <Container maxWidth="md" sx={"background-color:#f3d2c1"}>
+        <Typography variant='h3'>Kaimemo!</Typography>
         <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
         <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
-        <CalculateButton/>
-        
-      <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
-    </Container >
+        <CalculateButton />
+
+        <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
+      </Container >
     </>
   );
 

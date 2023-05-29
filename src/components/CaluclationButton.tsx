@@ -7,6 +7,7 @@ export default function CalculateButton() {
     position: 'absolute',
     top: 250,
     right: 16,
+    background:"#8bd3dd"
   };
 
   return (

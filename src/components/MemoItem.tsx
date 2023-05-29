@@ -29,9 +29,10 @@ export default function MemoItem(props: any) {
         my: 1,
         mx: 'auto',
         p: 0.5,
+        
       }}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={"background-color:#fef6e4"}>
         <Avatar>
           {
             props.data.mmsb === 'food' ? <LocalDiningIcon /> : <SoapIcon />
