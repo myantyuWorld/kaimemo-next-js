@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardContent, Paper, Stack, Typography, styled } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Grid, Paper, Stack, Typography, styled } from "@mui/material";
 import MemoItem from "./MemoItem";
 
 export default function MemoList(props: any) {
@@ -16,20 +16,24 @@ export default function MemoList(props: any) {
         .sort((a: { mmid: number; }, b: { mmid: number; }) => a.mmid - b.mmid)
 
   return (
-    <Card sx={"background-color:#fef6e4"}>
-      <CardContent>
-        <Box sx={{
-          flexGrow: 1, overflow: 'hidden', px: 0,
-          flexDirection: "column",
-          height: 480,
-          overflowY: "scroll",
-        }}>
-          {memoList
-            .map((item: any, index: number) => (
-              <MemoItem key={item.mmid} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
-            ))}
-        </Box>
-      </CardContent>
-    </Card>
+    <Grid container spacing={0} mt={1}>
+      <Grid item xs={12}>
+        <Card sx={"background-color:#fef6e4"}>
+          <CardContent>
+            <Box sx={{
+              flexGrow: 1, overflow: 'hidden', px: 0,
+              flexDirection: "column",
+              height: 480,
+              overflowY: "scroll",
+            }}>
+              {memoList
+                .map((item: any, index: number) => (
+                  <MemoItem key={item.mmid} data={item} handleDeleteMemo={() => handleDeleteMemo(item.mmid)}></MemoItem>
+                ))}
+            </Box>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   )
 }

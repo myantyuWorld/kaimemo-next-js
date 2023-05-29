@@ -29,17 +29,17 @@ export default function MemoItem(props: any) {
         my: 1,
         mx: 'auto',
         p: 0.5,
-        
+        background:"#fef8ef"
       }}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={"background-color:#fef6e4"}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Avatar>
           {
             props.data.mmsb === 'food' ? <LocalDiningIcon /> : <SoapIcon />
           }
         </Avatar>
         <Typography noWrap fontSize={14} className={isDisabled ? "isDisabled" : ""}>{props.data.mmnm}</Typography>
-        <Button variant="outlined" color="error" onClick={handleDeleteMemo} disabled={isDisabled} startIcon={<DeleteForeverIcon />}></Button>
+        <Button variant="contained" color="error" onClick={handleDeleteMemo} disabled={isDisabled} startIcon={<DeleteForeverIcon />}></Button>
       </Stack>
     </Item>
   )
