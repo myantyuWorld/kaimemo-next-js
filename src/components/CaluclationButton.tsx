@@ -5,8 +5,8 @@ import Link from 'next/link';
 export default function CalculateButton() {
   const fabStyle = {
     position: 'absolute',
-    top: 250,
-    right: 16,
+    top: 10,
+    right: 60,
     background:"#8bd3dd"
   };
 
