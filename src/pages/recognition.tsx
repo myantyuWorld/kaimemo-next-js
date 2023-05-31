@@ -55,7 +55,7 @@ export default function Recognition() {
           />
         </Grid>
         <Grid item xs={12}>
-          <img src={url} height={300} width={390}/>
+          <img src={url} height={300}/>
         </Grid>
         <Grid item xs={12}>
           <button onClick={capture}>Capture photo</button>
