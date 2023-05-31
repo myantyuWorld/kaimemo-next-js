@@ -9,14 +9,13 @@ export default function Recognition() {
   const videoConstraints = {
     width: 1280,
     height: 720,
-    facingMode: "user"
+    facingMode: "environment"
   };
-  const webcamRef = React.useRef(null);
-  const [url, setUrl] = React.useState<string | null>(null);
-  // TODO : 赤波線をなくす
+  const webcamRef = React.useRef<Webcam>(null);
+  const [url, setUrl] = React.useState<any>(null);
   const capture = React.useCallback(
     () => {
-      const imageSrc = webcamRef.current.getScreenshot();
+      const imageSrc = webcamRef.current?.getScreenshot();
       if (imageSrc) {
         setUrl(imageSrc)
       }
