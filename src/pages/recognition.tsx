@@ -4,8 +4,9 @@ import Link from "next/link";
 import React from "react";
 import Webcam from "react-webcam";
 
-
 export default function Recognition() {
+  const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/recognition"
+
   const videoConstraints = {
     width: 1280,
     height: 720,
@@ -25,6 +26,14 @@ export default function Recognition() {
   const recognition = React.useCallback(
     () => {
       console.log("撮影した画像を、解析に回す")
+      fetch(API_URL, {
+        mode: "cors",
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ img : url }),
+      });
     },
     [url]
   );
