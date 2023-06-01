@@ -4,8 +4,6 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-// https://github.com/mozmorris/react-webcam
 export default function RecognitionResultButton() {
 
   const fabStyle = {

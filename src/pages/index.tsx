@@ -87,7 +87,6 @@ export default function Home() {
     background: "#f3d2c1"
   }
 
-
   return (
     <>
       <Head>
