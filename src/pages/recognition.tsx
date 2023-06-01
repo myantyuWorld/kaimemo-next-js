@@ -2,23 +2,34 @@ import { Container, Grid, Typography } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
+
 import Webcam from "react-webcam";
+import { createWorker } from 'tesseract.js';
 
 export default function Recognition() {
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/recognition"
+
+  const [base64Img, setBase64Img] = React.useState<any>(null);
+  const [textOcr, setTextOcr] = React.useState('');
+  const webcamRef = React.useRef<Webcam>(null);
 
   const videoConstraints = {
     width: 1280,
     height: 720,
     facingMode: "environment"
   };
-  const webcamRef = React.useRef<Webcam>(null);
-  const [url, setUrl] = React.useState<any>(null);
+  const worker = createWorker({
+    logger: m => console.log(m)
+  })
   const capture = React.useCallback(
-    () => {
+    async () => {
       const imageSrc = webcamRef.current?.getScreenshot();
       if (imageSrc) {
-        setUrl(imageSrc)
+        setBase64Img(imageSrc)
+
+        setTextOcr('Recognizing...')
+        // TODO : bug
+        // await tryOcr();
       }
     },
     [webcamRef]
@@ -32,11 +43,19 @@ export default function Recognition() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ img : url }),
+        body: JSON.stringify({ img : base64Img }),
       });
     },
-    [url]
+    [base64Img]
   );
+  const tryOcr = async() => {
+    await worker.load();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    const { data: { text } } = await worker.recognize(file);
+    setTextOcr(text);
+    await worker.terminate();
+  }
   return (
     <>
       <Head>
@@ -55,11 +74,14 @@ export default function Recognition() {
           />
         </Grid>
         <Grid item xs={12}>
-          <img src={url} height={300}/>
+          {textOcr}
+        </Grid>
+        <Grid item xs={12}>
+          <img src={base64Img} height={300}/>
         </Grid>
         <Grid item xs={12}>
           <button onClick={capture}>Capture photo</button>
-          <button onClick={() => setUrl(null)}>delete</button>
+          <button onClick={() => setBase64Img(null)}>delete</button>
           <button onClick={recognition}>recognition</button>
         </Grid>
       </Grid>
