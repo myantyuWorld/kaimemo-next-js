@@ -82,7 +82,7 @@ export default function Recognition() {
                 audio={false}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                height={100}
+                height={200}
                 width={300}
                 videoConstraints={videoConstraints}
               />
