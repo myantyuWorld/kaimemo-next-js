@@ -9,6 +9,7 @@ import FilterMemo from '../components/FilterMemo';
 import CalculateButton from '../components/CaluclationButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import RecognitionButton from '../features/recognition/components/RecognitionButton';
+import RecognitionResultButton from '../features/recognition/components/RecognitionResultButton';
 
 export default function Home() {
   // https://zenn.dev/uttk/articles/b3bcbedbc1fd00
@@ -93,13 +94,14 @@ export default function Home() {
         <title>Kaimemo!</title>
       </Head>
       <Container maxWidth="md" sx={containerStyle}>
-        <Typography variant='h3' sx={{color:"#001858"}}>Kaimemo!</Typography>
-        <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-        <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
-        <CalculateButton />
-        <RecognitionButton/>
+          <Typography variant='h3' sx={{ color: "#001858" }}>Kaimemo!</Typography>
+          <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
+          <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
+          <CalculateButton />
+          <RecognitionButton />
+          <RecognitionResultButton />
 
-        <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
+          <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
       </Container >
     </>
   );
