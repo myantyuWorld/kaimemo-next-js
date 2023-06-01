@@ -48,14 +48,16 @@ export default function Recognition() {
         Key: fileName,
         Body: Buffer.from(base64Img.replace(/^data:\w+\/\w+;base64,/, ''), 'base64'),
       };
-      // S3へのアップロードに必要な情報をまとめるオブジェクト
       try {
         const command = new PutObjectCommand(params);
-        const data = await client.send(command);
-        console.log(data);
+         await client.send(command);
+        
+        setBase64Img(null)
+        setTextOcr("")
+        // TODO : 簡単なトースト通知を行うようにする
         alert("upload complete")
       } catch (error) {
-        // アップロードエラー発生時の処理
+        // TODO : 簡単なトースト通知を行うようにする
         console.error('画像アップロードエラー:', error);
         alert(error)
       }
