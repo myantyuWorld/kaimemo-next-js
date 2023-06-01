@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import Head from "next/head";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: any) {
   const containerStyle = {
     background: "#f3d2c1"
   }
