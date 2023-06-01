@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button, Card, CardContent, Container, Grid, Skeleton, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import { S3 } from 'aws-sdk'
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import Webcam from "react-webcam";
 import Tesseract from "tesseract.js";
 import { createWorker, Worker } from 'tesseract.js';
@@ -32,33 +32,30 @@ export default function Recognition() {
     },
     [webcamRef]
   );
-  // S3の設定
-  const s3 = new S3({
-    accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-    secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-    region: process.env.NEXT_PUBLIC_REGION,
-  });
   const recognition = React.useCallback(
     async () => {
       // アップロード時のファイル名を作成
       const fileName = `${Date.now()}.png`;
-      // S3へのアップロードに必要な情報をまとめるオブジェクト
-      const params: PutObjectRequest = {
+      const client = new S3Client({
+        region: process.env.NEXT_PUBLIC_REGION,
+        credentials: {
+          accessKeyId: `${process.env.NEXT_PUBLIC_ACCESS_KEY_ID}`,
+          secretAccessKey: `${process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY}`,
+        },
+      });
+      const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
         Key: fileName,
-        ContentType: "image/png",
         Body: Buffer.from(base64Img.replace(/^data:\w+\/\w+;base64,/, ''), 'base64'),
       };
+      // S3へのアップロードに必要な情報をまとめるオブジェクト
       try {
-        // S3に画像をアップロードする
-        const data = await s3.upload(params).promise();
-        // アップロードされた画像のURLを取得
-        return data.Location;
+        const command = new PutObjectCommand(params);
+        const data = await client.send(command);
+        console.log(data);
       } catch (error) {
         // アップロードエラー発生時の処理
         console.error('画像アップロードエラー:', error);
-        // null値を返す
-        return null;
       }
     },
     [base64Img]
