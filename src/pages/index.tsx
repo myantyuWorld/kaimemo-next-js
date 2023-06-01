@@ -2,14 +2,24 @@ import * as React from 'react';
 import Head from 'next/head'
 import { Box, Button, Container, Fab, Typography } from '@mui/material';
 
-import InputMemo from '../components/InputMemo';
-import MemoList from '../components/MemoList';
+import CalculateIcon from '@mui/icons-material/Calculate';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+import InputMemo from '../features/memo/components/InputMemo';
+import MemoList from '../features/memo/components/MemoList';
 import useSWR from 'swr'
-import FilterMemo from '../components/FilterMemo';
-import CalculateButton from '../components/CaluclationButton';
+import FilterMemo from '../features/memo/components/FilterMemo';
+import CalculateButton from '../features/calculator/components/CaluclationButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import RecognitionButton from '../features/recognition/components/RecognitionButton';
 import RecognitionResultButton from '../features/recognition/components/RecognitionResultButton';
+import BaseButton from '../components/elements/Button/BaseButton';
+
+
+
 
 export default function Home() {
   // https://zenn.dev/uttk/articles/b3bcbedbc1fd00
@@ -86,21 +96,20 @@ export default function Home() {
   const containerStyle = {
     background: "#f3d2c1"
   }
-
   return (
     <>
       <Head>
         <title>Kaimemo!</title>
       </Head>
       <Container maxWidth="md" sx={containerStyle}>
-          <Typography variant='h3' sx={{ color: "#001858" }}>Kaimemo!</Typography>
-          <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-          <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
-          <CalculateButton />
-          <RecognitionButton />
-          <RecognitionResultButton />
+        <Typography variant='h3' sx={{ color: "#001858" }}>Kaimemo!</Typography>
+        <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
+        <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
+        <BaseButton top={10} right={60} component={<CalculateIcon />} link="calc" />
+        <BaseButton top={10} right={16} component={<CameraAltIcon />} link="recognition" />
+        <RecognitionResultButton />
 
-          <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
+        <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
       </Container >
     </>
   );

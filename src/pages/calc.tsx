@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
-import Calculator from "../components/Calculator";
+import Calculator from "../features/calculator/components/Calculator";
 
 export default function Calc() {
   return (
