@@ -27,7 +27,7 @@ export default function MemoList(props: any) {
             <Box sx={{
               flexGrow: 1, overflow: 'hidden', px: 0,
               flexDirection: "column",
-              height: 480,
+              height: 300,
               overflowY: "scroll",
             }}>
               {memoList

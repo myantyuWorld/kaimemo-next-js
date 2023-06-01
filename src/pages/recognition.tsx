@@ -26,9 +26,7 @@ export default function Recognition() {
       const imageSrc = webcamRef.current?.getScreenshot();
       if (imageSrc) {
         setBase64Img(imageSrc)
-
         setTextOcr('')
-        // TODO : bug
         tryOcr(imageSrc)
       }
     },
