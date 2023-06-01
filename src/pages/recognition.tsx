@@ -17,8 +17,8 @@ export default function Recognition() {
   const webcamRef = React.useRef<Webcam>(null);
 
   const videoConstraints = {
-    width: 1280,
-    height: 720,
+    width: 640,
+    height: 360,
     facingMode: "environment"
   };
   const capture = React.useCallback(
