@@ -59,7 +59,7 @@ export default function Home() {
     <>
       <BaseTitle />
       <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-      <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
+      <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} data={data}/>
       <BaseButton top={10} right={60} component={<CalculateIcon />} link="calc" />
       <BaseButton top={10} right={16} component={<CameraAltIcon />} link="recognition" />
       <RecognitionResultButton />
