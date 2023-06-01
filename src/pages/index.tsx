@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Head from 'next/head'
-import { Box, Button, Container, Fab, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 import CalculateIcon from '@mui/icons-material/Calculate';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
@@ -8,19 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import InputMemo from '../features/memo/components/InputMemo';
 import MemoList from '../features/memo/components/MemoList';
-import useSWR from 'swr'
 import FilterMemo from '../features/memo/components/FilterMemo';
 import RecognitionResultButton from '../features/recognition/components/RecognitionResultButton';
 import BaseButton from '../components/elements/Button/BaseButton';
 import { useFetchMemo } from '../hooks/useFetchData';
 import BaseTitle from '../components/elements/Title/BaseTitle';
 
-
 export default function Home() {
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo"
-  const containerStyle = {
-    background: "#f3d2c1"
-  }
   const [filterCategory, setFilterCategory] = React.useState('food');
 
   const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {

@@ -1,7 +1,5 @@
-import { DeleteForever } from "@mui/icons-material";
 import { Button, Card, CardContent, Container, Grid, Skeleton, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 

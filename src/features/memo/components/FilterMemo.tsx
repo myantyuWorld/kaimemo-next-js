@@ -2,6 +2,7 @@ import { Button, Card, CardContent, Divider, Grid, Stack, ToggleButton, ToggleBu
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import SoapIcon from '@mui/icons-material/Soap';
 import React from "react";
+import CardTitle from "../../../components/elements/Title/CardTitle";
 
 export default function FilterMemo(props: any) {
   const handleFilterChange = (
@@ -23,7 +24,7 @@ export default function FilterMemo(props: any) {
       <Grid item xs={12}>
         <Card sx={cardStyle}>
           <CardContent>
-            <Typography variant='h6' sx={{color:"#001858"}} mb={1}>フィルター</Typography>
+            <CardTitle title="フィルター"/>
             <Stack
               direction="row"
               justifyContent="center"

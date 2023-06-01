@@ -35,13 +35,13 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
   }
 
   const cardStyle = {
-    background:"#fef6e4"
+    background: "#fef6e4"
   }
 
   const toggleStyle = {
-    background:"#8bd3dd"
+    background: "#8bd3dd"
   }
-  
+
   return (
     <>
       <Grid container spacing={0} mt={1}>
@@ -49,7 +49,7 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
           <Card sx={cardStyle}>
             <CardMedia
               sx={{ height: 80 }}
-              image={alignment == 'food' ? "/article42_img03.jpeg" : "main.jpeg"} 
+              image={alignment == 'food' ? "/article42_img03.jpeg" : "main.jpeg"}
               title="green iguana"
             />
             <CardContent>
@@ -60,7 +60,7 @@ export default function InputMemo(props: { handleRegistMemo: (arg0: { mmsb: stri
                 divider={<Divider orientation="vertical" flexItem />}
                 spacing={1}
                 mb={2}>
-                <Typography variant='h6' sx={{color:"#001858"}}>{message}</Typography>
+                <Typography variant='h6' sx={{ color: "#001858" }}>{message}</Typography>
               </Stack>
               <Stack
                 direction="row"
