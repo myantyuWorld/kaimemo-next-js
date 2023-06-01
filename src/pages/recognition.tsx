@@ -1,13 +1,13 @@
-import { DeleteForever } from "@mui/icons-material";
 import { Button, Card, CardContent, Container, Grid, Skeleton, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 
 import Webcam from "react-webcam";
 import Tesseract from "tesseract.js";
 import { createWorker, Worker } from 'tesseract.js';
+import BaseTitle from "../components/elements/Title/BaseTitle";
+import CardTitle from "../components/elements/Title/CardTitle";
 
 export default function Recognition() {
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/recognition"
@@ -26,9 +26,7 @@ export default function Recognition() {
       const imageSrc = webcamRef.current?.getScreenshot();
       if (imageSrc) {
         setBase64Img(imageSrc)
-
         setTextOcr('')
-        // TODO : bug
         tryOcr(imageSrc)
       }
     },
@@ -70,66 +68,57 @@ export default function Recognition() {
     setBase64Img(null)
     setTextOcr("")
   }
-  const containerStyle = {
-    background: "#f3d2c1"
-  }
-  const titleStyle = {
-    color: "#001858"
-  }
   return (
     <>
-      <Head>
-        <title>Kaimemo!</title>
-      </Head>
-      <Container maxWidth="md" sx={containerStyle}>
-        <Typography variant='h3' sx={titleStyle}><Link href="/">Kaimemo!</Link></Typography>
-        <Grid container spacing={0} mt={1}>
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Typography variant='h6' sx={titleStyle} mb={1}>プレビュー</Typography>
-                <Webcam
-                  audio={false}
-                  ref={webcamRef}
-                  screenshotFormat="image/jpeg"
-                  height={100}
-                  width={300}
-                  videoConstraints={videoConstraints}
-                />
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} mt={1}>
-            <Card>
-              <CardContent>
-                <Typography variant='h6' sx={titleStyle} mb={1}>解析結果数字</Typography>
-                {
-                  textOcr === "" ? <Skeleton animation="wave"/> : textOcr
-                }
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} mt={1}>
-            <Card>
-              <CardContent>
-                <Typography variant='h6' sx={titleStyle} mb={1}>スクリーンショット</Typography>
-                {
-                  base64Img ? <img src={base64Img} height={100} /> : <Skeleton  animation="wave" height={100}/>
-                }
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} mt={1}>
-            <Card>
-              <CardContent>
-                <button onClick={capture}>Capture</button>
-                <Button variant="contained" color="error" onClick={onClickDelete} startIcon={<DeleteForeverIcon/>}></Button>
-                <button onClick={recognition}>recognition</button>
-              </CardContent>
-            </Card>
-          </Grid>
+      <Link href="/">
+        <BaseTitle />
+      </Link>
+      <Grid container spacing={0} mt={1}>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <CardTitle title="プレビュー" />
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                height={200}
+                width={300}
+                videoConstraints={videoConstraints}
+              />
+            </CardContent>
+          </Card>
         </Grid>
-      </Container>
+        <Grid item xs={12} mt={1}>
+          <Card>
+            <CardContent>
+              <CardTitle title="解析結果数字" />
+              {
+                textOcr === "" ? <Skeleton animation="wave" /> : textOcr
+              }
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} mt={1}>
+          <Card>
+            <CardContent>
+              <CardTitle title="スクリーンショット" />
+              {
+                base64Img ? <img src={base64Img} height={100} /> : <Skeleton animation="wave" height={100} />
+              }
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} mt={1}>
+          <Card>
+            <CardContent>
+              <button onClick={capture}>Capture</button>
+              <Button variant="contained" color="error" onClick={onClickDelete} startIcon={<DeleteForeverIcon />}></Button>
+              <button onClick={recognition}>recognition</button>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </>
   )
 }

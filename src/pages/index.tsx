@@ -1,27 +1,23 @@
 import * as React from 'react';
-import Head from 'next/head'
-import { Box, Button, Container, Fab, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
-import InputMemo from '../components/InputMemo';
-import MemoList from '../components/MemoList';
-import useSWR from 'swr'
-import FilterMemo from '../components/FilterMemo';
-import CalculateButton from '../components/CaluclationButton';
-import LinearProgress from '@mui/material/LinearProgress';
-import RecognitionButton from '../features/recognition/components/RecognitionButton';
+import CalculateIcon from '@mui/icons-material/Calculate';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import 'react-toastify/dist/ReactToastify.css';
+
+import InputMemo from '../features/memo/components/InputMemo';
+import MemoList from '../features/memo/components/MemoList';
+import FilterMemo from '../features/memo/components/FilterMemo';
 import RecognitionResultButton from '../features/recognition/components/RecognitionResultButton';
+import BaseButton from '../components/elements/Button/BaseButton';
+import { useFetchMemo } from '../hooks/useFetchData';
+import BaseTitle from '../components/elements/Title/BaseTitle';
 
 export default function Home() {
-  // https://zenn.dev/uttk/articles/b3bcbedbc1fd00
-  const fetcher = (url: string): Promise<any> => fetch(url).then(res => res.json());
-
-  // http://os3-357-11662.vs.sakura.ne.jp:18083/rakuzaim08/vue/memo/index
-  // [{"mmid":1183,"mmsb":1,"mmnm":"袋とじ","count":0,"deleteFlg":0}]
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo"
-  // const { data, error } = useSWR('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', fetcher)
-  const { data, error } = useSWR(API_URL, fetcher, { refreshInterval: 7000 })
+  const [filterCategory, setFilterCategory] = React.useState('food');
 
-  const postData = (data: { mmsb: string; mmnm: string; }) => {
+  const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {
     // fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
     fetch(API_URL, {
       mode: "cors",
@@ -33,32 +29,9 @@ export default function Home() {
     });
   }
 
-  const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {
-    postData(data)
-  }
-
-  const [filterCategory, setFilterCategory] = React.useState('food');
   const handleFilterChange = (newAlignment: string) => {
     setFilterCategory(newAlignment);
   };
-  const [progress, setProgress] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 500);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
   // 子→親
   // https://qiita.com/aliceroot0678/items/e4eabcbe3f9f79cada55
   const handleDeleteMemo = (mmid: number) => {
@@ -73,35 +46,25 @@ export default function Home() {
     });
   }
 
-
+  const { data, error } = useFetchMemo()
   if (error) return <div>failed to load</div>
   if (!data) {
     return (
       <Box>
-        <LinearProgress variant="determinate" value={progress} />
+        now loading...
       </Box>
     )
   }
-
-  const containerStyle = {
-    background: "#f3d2c1"
-  }
-
   return (
     <>
-      <Head>
-        <title>Kaimemo!</title>
-      </Head>
-      <Container maxWidth="md" sx={containerStyle}>
-          <Typography variant='h3' sx={{ color: "#001858" }}>Kaimemo!</Typography>
-          <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-          <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
-          <CalculateButton />
-          <RecognitionButton />
-          <RecognitionResultButton />
+      <BaseTitle />
+      <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
+      <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} data={data}/>
+      <BaseButton top={10} right={60} component={<CalculateIcon />} link="calc" />
+      <BaseButton top={10} right={16} component={<CameraAltIcon />} link="recognition" />
+      <RecognitionResultButton />
 
-          <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
-      </Container >
+      <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
     </>
   );
 
