@@ -53,9 +53,11 @@ export default function Recognition() {
         const command = new PutObjectCommand(params);
         const data = await client.send(command);
         console.log(data);
+        alert("upload complete")
       } catch (error) {
         // アップロードエラー発生時の処理
         console.error('画像アップロードエラー:', error);
+        alert(error)
       }
     },
     [base64Img]
