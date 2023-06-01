@@ -1,11 +1,13 @@
+import React from "react";
+import Link from "next/link";
 import { Button, Card, CardContent, Container, Grid, Skeleton, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Link from "next/link";
-import React from "react";
 
+import { S3 } from 'aws-sdk'
 import Webcam from "react-webcam";
 import Tesseract from "tesseract.js";
 import { createWorker, Worker } from 'tesseract.js';
+
 import BaseTitle from "../components/elements/Title/BaseTitle";
 import CardTitle from "../components/elements/Title/CardTitle";
 
@@ -30,19 +32,34 @@ export default function Recognition() {
     },
     [webcamRef]
   );
-
+  // S3の設定
+  const s3 = new S3({
+    accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
+    secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
+    region: process.env.NEXT_PUBLIC_REGION,
+  });
   const recognition = React.useCallback(
-    () => {
-      console.log(process.env.NEXT_PUBLIC_FOO)
-      console.log("撮影した画像を、解析に回す")
-      fetch(`${process.env.NEXT_PUBLIC_AWS_API_GATEWAY__BASE_URL}${process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL_RECOGNITION}`, {
-        mode: "cors",
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ img: base64Img }),
-      });
+    async () => {
+      // アップロード時のファイル名を作成
+      const fileName = `${Date.now()}.png`;
+      // S3へのアップロードに必要な情報をまとめるオブジェクト
+      const params: PutObjectRequest = {
+        Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
+        Key: fileName,
+        ContentType: "image/png",
+        Body: Buffer.from(base64Img.replace(/^data:\w+\/\w+;base64,/, ''), 'base64'),
+      };
+      try {
+        // S3に画像をアップロードする
+        const data = await s3.upload(params).promise();
+        // アップロードされた画像のURLを取得
+        return data.Location;
+      } catch (error) {
+        // アップロードエラー発生時の処理
+        console.error('画像アップロードエラー:', error);
+        // null値を返す
+        return null;
+      }
     },
     [base64Img]
   );
