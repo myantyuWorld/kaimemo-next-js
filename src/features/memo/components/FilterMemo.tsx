@@ -11,7 +11,6 @@ export default function FilterMemo(props: any) {
   ) => {
     props.handleFilterChange(newAlignment)
   };
-
   const cardStyle = {
     background: "#fef6e4"
   }
