@@ -13,10 +13,16 @@ import FilterMemo from '../features/memo/components/FilterMemo';
 import RecognitionResultButton from '../features/recognition/components/RecognitionResultButton';
 import BaseButton from '../components/elements/Button/BaseButton';
 import { useFetchMemo } from '../hooks/useFetchData';
+import BaseTitle from '../components/elements/Title/BaseTitle';
 
 
 export default function Home() {
   const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo"
+  const containerStyle = {
+    background: "#f3d2c1"
+  }
+  const [filterCategory, setFilterCategory] = React.useState('food');
+
   const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {
     // fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
     fetch(API_URL, {
@@ -29,7 +35,6 @@ export default function Home() {
     });
   }
 
-  const [filterCategory, setFilterCategory] = React.useState('food');
   const handleFilterChange = (newAlignment: string) => {
     setFilterCategory(newAlignment);
   };
@@ -47,7 +52,7 @@ export default function Home() {
     });
   }
 
-  const {data, error} = useFetchMemo()
+  const { data, error } = useFetchMemo()
   if (error) return <div>failed to load</div>
   if (!data) {
     return (
@@ -56,24 +61,16 @@ export default function Home() {
       </Box>
     )
   }
-  const containerStyle = {
-    background: "#f3d2c1"
-  }
   return (
     <>
-      <Head>
-        <title>Kaimemo!</title>
-      </Head>
-      <Container maxWidth="md" sx={containerStyle}>
-        <Typography variant='h3' sx={{ color: "#001858" }}>Kaimemo!</Typography>
-        <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-        <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
-        <BaseButton top={10} right={60} component={<CalculateIcon />} link="calc" />
-        <BaseButton top={10} right={16} component={<CameraAltIcon />} link="recognition" />
-        <RecognitionResultButton />
+      <BaseTitle />
+      <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
+      <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} />
+      <BaseButton top={10} right={60} component={<CalculateIcon />} link="calc" />
+      <BaseButton top={10} right={16} component={<CameraAltIcon />} link="recognition" />
+      <RecognitionResultButton />
 
-        <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
-      </Container >
+      <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
     </>
   );
 
