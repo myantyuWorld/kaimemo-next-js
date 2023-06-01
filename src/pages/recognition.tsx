@@ -10,8 +10,6 @@ import BaseTitle from "../components/elements/Title/BaseTitle";
 import CardTitle from "../components/elements/Title/CardTitle";
 
 export default function Recognition() {
-  const API_URL = "https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/recognition"
-
   const [base64Img, setBase64Img] = React.useState<any>(null);
   const [textOcr, setTextOcr] = React.useState('');
   const webcamRef = React.useRef<Webcam>(null);
@@ -35,8 +33,9 @@ export default function Recognition() {
 
   const recognition = React.useCallback(
     () => {
+      console.log(process.env.NEXT_PUBLIC_FOO)
       console.log("撮影した画像を、解析に回す")
-      fetch(API_URL, {
+      fetch(`${process.env.NEXT_PUBLIC_AWS_API_GATEWAY__BASE_URL}${process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL_RECOGNITION}`, {
         mode: "cors",
         method: 'POST',
         headers: {

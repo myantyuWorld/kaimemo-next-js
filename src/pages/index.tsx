@@ -18,8 +18,7 @@ export default function Home() {
   const [filterCategory, setFilterCategory] = React.useState('food');
 
   const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {
-    // fetch('https://fby1jt4nzc.execute-api.ap-northeast-1.amazonaws.com/Prod/memo', {
-    fetch(API_URL, {
+    fetch(`${process.env.NEXT_PUBLIC_AWS_API_GATEWAY__BASE_URL}${process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL_MEMO}`, {
       mode: "cors",
       method: 'POST',
       headers: {
@@ -32,8 +31,6 @@ export default function Home() {
   const handleFilterChange = (newAlignment: string) => {
     setFilterCategory(newAlignment);
   };
-  // 子→親
-  // https://qiita.com/aliceroot0678/items/e4eabcbe3f9f79cada55
   const handleDeleteMemo = (mmid: number) => {
     console.log(mmid)
     fetch(API_URL, {
