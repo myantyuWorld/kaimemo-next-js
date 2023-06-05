@@ -1,11 +1,17 @@
 import { useState } from "react";
 import useSWR from "swr";
 
-export const useMemo = () => {
+interface Memo {
+  Regist: (data: { mmsb: string; mmnm: string; }) => void;
+  Change: (newCategory: string) => void;
+  Delete: (id: number) => void;
+}
+
+export const useMemo = (): [Memo, string, any, any] => {
   const API_URL = `${process.env.NEXT_PUBLIC_AWS_API_GATEWAY__BASE_URL}${process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL_MEMO}`
   const [filterCategory, setFilterCategory] = useState('food');
 
-  const handleRegistMemo = (data: { mmsb: string; mmnm: string; }) => {
+  const Regist = (data: { mmsb: string; mmnm: string; }): void => {
     fetch(API_URL, {
       mode: "cors",
       method: 'POST',
@@ -15,22 +21,22 @@ export const useMemo = () => {
       body: JSON.stringify({ mmsb: data.mmsb, mmnm: data.mmnm }),
     });
   }
-  const handleFilterChange = (newAlignment: string) => {
-    setFilterCategory(newAlignment);
+  const Change = (newCategory: string): void => {
+    setFilterCategory(newCategory);
   };
-  const handleDeleteMemo = (mmid: number) => {
+  const Delete = (id: number): void => {
     fetch(API_URL, {
       mode: "cors",
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ mmid: mmid }),
+      body: JSON.stringify({ mmid: id }),
     });
   }
   const fetcher = (url: string): Promise<any> => fetch(url).then(res => res.json());
   const { data, error } = useSWR(API_URL, fetcher, { refreshInterval: 7000 })
-  
 
-  return [handleRegistMemo, handleFilterChange, handleDeleteMemo, filterCategory, data, error]
+
+  return [{ Regist, Change, Delete }, filterCategory, data, error];
 }

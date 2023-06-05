@@ -5,7 +5,13 @@ import Webcam from "react-webcam";
 import Tesseract from "tesseract.js";
 import { createWorker, Worker } from 'tesseract.js';
 
-export const useRecognition = () => {
+interface Recognition {
+  Upload: () => void;
+  Capture: () => void;
+  Reset: () => void;
+}
+
+export const useRecognition = (): [any, any, string, string, Recognition] => {
   const [base64Img, setBase64Img] = useState<any>(null);
   const [textOcr, setTextOcr] = useState('');
   const webcamRef = useRef<Webcam>(null);
@@ -15,7 +21,7 @@ export const useRecognition = () => {
     height: 360,
     facingMode: "environment"
   };
-  const handlerCapture = useCallback(
+  const Capture = useCallback(
     async () => {
       const imageSrc = webcamRef.current?.getScreenshot();
       if (imageSrc) {
@@ -26,11 +32,12 @@ export const useRecognition = () => {
     },
     [webcamRef]
   );
-  const handlerUploadCaptureImageOfS3 = useCallback(
+
+  const Upload = useCallback(
     async () => {
       // アップロード時のファイル名を作成
       let today = new Date();
- 
+
       let year = today.getFullYear();
       let month = today.getMonth() + 1;
       let date = today.getDate();
@@ -52,8 +59,8 @@ export const useRecognition = () => {
       };
       try {
         const command = new PutObjectCommand(params);
-         await client.send(command);
-        
+        await client.send(command);
+
         setBase64Img(null)
         setTextOcr("")
         // TODO : 簡単なトースト通知を行うようにする
@@ -66,6 +73,11 @@ export const useRecognition = () => {
     },
     [base64Img]
   );
+
+  const Reset = () => {
+    setBase64Img(null)
+    setTextOcr("")
+  }
   const tryOcr = async (buffer: string) => {
     const worker: Promise<Worker> = createWorker({
       logger: m => console.log(m)
@@ -83,10 +95,7 @@ export const useRecognition = () => {
     setTextOcr(text)
 
   }
-  const handlerResetCapture = () => {
-    setBase64Img(null)
-    setTextOcr("")
-  }
-  
-  return [webcamRef, videoConstraints, textOcr, base64Img, handlerCapture, handlerResetCapture, handlerUploadCaptureImageOfS3]
+
+
+  return [webcamRef, videoConstraints, textOcr, base64Img, { Upload, Capture, Reset }]
 }

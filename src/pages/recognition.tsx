@@ -10,7 +10,7 @@ import CardTitle from "../components/elements/Title/CardTitle";
 import { useRecognition } from "../features/recognition/hooks/useRecognition";
 
 export default function Recognition() {
-  const [webcamRef, videoConstraints, textOcr, base64Img, handlerCapture, handlerResetCapture, handlerUploadCaptureImageOfS3] = useRecognition()
+  const [webcamRef, videoConstraints, textOcr, base64Img, Recognition] = useRecognition()
 
   return (
     <>
@@ -56,9 +56,9 @@ export default function Recognition() {
         <Grid item xs={12} mt={1}>
           <Card>
             <CardContent>
-              <button onClick={handlerCapture}>Capture</button>
-              <Button variant="contained" color="error" onClick={handlerResetCapture} startIcon={<DeleteForeverIcon />}></Button>
-              <button onClick={handlerUploadCaptureImageOfS3}>recognition</button>
+              <button onClick={Recognition.Capture}>Capture</button>
+              <Button variant="contained" color="error" onClick={Recognition.Reset} startIcon={<DeleteForeverIcon />}></Button>
+              <button onClick={Recognition.Upload}>recognition</button>
             </CardContent>
           </Card>
         </Grid>

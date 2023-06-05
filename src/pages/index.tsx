@@ -14,7 +14,7 @@ import BaseTitle from '../components/elements/Title/BaseTitle';
 import { useMemo } from '../features/memo/hooks/useMemo';
 
 export default function Home() {
-  const [handleRegistMemo, handleFilterChange, handleDeleteMemo, filterCategory, data, error] = useMemo()
+  const [memo, filterCategory, data, error] = useMemo()
 
   if (error) return <div>failed to load</div>
   if (!data) {
@@ -27,13 +27,13 @@ export default function Home() {
   return (
     <>
       <BaseTitle />
-      <InputMemo handleRegistMemo={handleRegistMemo}></InputMemo>
-      <FilterMemo handleFilterChange={handleFilterChange} filterCategory={filterCategory} data={data}/>
+      <InputMemo handleRegistMemo={memo.Regist}></InputMemo>
+      <FilterMemo handleFilterChange={memo.Change} filterCategory={filterCategory} data={data}/>
       <BaseButton top={10} right={60} component={<CalculateIcon />} link="calc" />
       <BaseButton top={10} right={16} component={<CameraAltIcon />} link="recognition" />
       <RecognitionResultButton />
 
-      <MemoList data={data} filter={filterCategory} handleDeleteMemo={handleDeleteMemo}></MemoList>
+      <MemoList data={data} filter={filterCategory} handleDeleteMemo={memo.Delete}></MemoList>
     </>
   );
 
