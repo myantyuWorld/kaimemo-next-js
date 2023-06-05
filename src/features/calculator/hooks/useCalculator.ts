@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 interface Calculator {
   Input: (e: any) => void;
@@ -12,23 +12,23 @@ export const useCalculator = (): [Calculator, number, number, any] => {
   const [oldNum, setOldNum] = useState(0);
   const [operator, setOperator] = useState();
 
-  const Input = (e: any) => {
+  const Input = useCallback((e: any) => {
     let input = e.target.value
     if (num === 0) {
       setNum(input);
     } else {
       setNum(num + input);
     }
-  }
+  },[])
 
-  const Clear = () => {
+  const Clear = useCallback(() => {
     setNum(0);
     setTotal(0);
-  }
+  },[])
 
-  const Delete = () => {
+  const Delete = useCallback(() => {
     setNum(0);
-  }
+  },[])
 
   const Calculate = (e: any) => {
     let operatorInput = e.target.value;

@@ -74,11 +74,12 @@ export const useRecognition = (): [any, any, string, string, Recognition] => {
     [base64Img]
   );
 
-  const Reset = () => {
+  const Reset = useCallback(() => {
     setBase64Img(null)
     setTextOcr("")
-  }
-  const tryOcr = async (buffer: string) => {
+  }, []);
+  
+  const tryOcr = useCallback(async (buffer: string) => {
     const worker: Promise<Worker> = createWorker({
       logger: m => console.log(m)
     })
@@ -94,7 +95,7 @@ export const useRecognition = (): [any, any, string, string, Recognition] => {
     await (await worker).terminate();
     setTextOcr(text)
 
-  }
+  },[])
 
 
   return [webcamRef, videoConstraints, textOcr, base64Img, { Upload, Capture, Reset }]
