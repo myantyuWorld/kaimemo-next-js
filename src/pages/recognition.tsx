@@ -35,7 +35,15 @@ export default function Recognition() {
   const recognition = React.useCallback(
     async () => {
       // アップロード時のファイル名を作成
-      const fileName = `${Date.now()}.png`;
+      let today = new Date();
+ 
+      let year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      let date = today.getDate();
+      let hour = today.getHours();
+      let min = today.getMinutes();
+      let second = today.getSeconds()
+      const fileName = `${year}_${month}_${date}_${hour}_${min}_${second}.png`;
       const client = new S3Client({
         region: process.env.NEXT_PUBLIC_REGION,
         credentials: {
