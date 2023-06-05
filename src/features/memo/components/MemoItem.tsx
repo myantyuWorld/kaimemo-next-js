@@ -16,10 +16,9 @@ export default function MemoItem(props: any) {
 
   const [isDisabled, setIsDisabled] = useState(false)
 
-  const handleDeleteMemo = (event: any) => {
+  const handleDeleteMemo = (e: any) => {
     setIsDisabled(true)
-    const value = event.target.value;
-    props.handleDeleteMemo(value);
+    props.handleDeleteMemo(e.target.value);
   };
   
 
