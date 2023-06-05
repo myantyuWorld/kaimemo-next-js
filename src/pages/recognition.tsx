@@ -1,12 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { Button, Card, CardContent, Container, Grid, Skeleton, Typography } from "@mui/material";
+import { Button, Card, CardContent, Grid, Skeleton } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import Webcam from "react-webcam";
-import Tesseract from "tesseract.js";
-import { createWorker, Worker } from 'tesseract.js';
 
 import BaseTitle from "../components/elements/Title/BaseTitle";
 import CardTitle from "../components/elements/Title/CardTitle";
@@ -14,7 +11,7 @@ import { useRecognition } from "../features/recognition/hooks/useRecognition";
 
 export default function Recognition() {
   const [webcamRef, videoConstraints, textOcr, base64Img, handlerCapture, handlerResetCapture, handlerUploadCaptureImageOfS3] = useRecognition()
-  
+
   return (
     <>
       <Link href="/">
