@@ -17,8 +17,8 @@ export const useRecognition = (): [any, any, string, string, Recognition] => {
   const webcamRef = useRef<Webcam>(null);
 
   const videoConstraints = {
-    width: 640,
-    height: 360,
+    width: 320,
+    height: 260,
     facingMode: "environment"
   };
   const Capture = useCallback(
