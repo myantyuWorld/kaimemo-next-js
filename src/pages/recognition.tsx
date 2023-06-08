@@ -1,98 +1,17 @@
 import React from "react";
 import Link from "next/link";
-import { Button, Card, CardContent, Container, Grid, Skeleton, Typography } from "@mui/material";
+import { Button, Card, CardContent, Grid, Skeleton } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import Webcam from "react-webcam";
-import Tesseract from "tesseract.js";
-import { createWorker, Worker } from 'tesseract.js';
 
 import BaseTitle from "../components/elements/Title/BaseTitle";
 import CardTitle from "../components/elements/Title/CardTitle";
+import { useRecognition } from "../features/recognition/hooks/useRecognition";
 
 export default function Recognition() {
-  const [base64Img, setBase64Img] = React.useState<any>(null);
-  const [textOcr, setTextOcr] = React.useState('');
-  const webcamRef = React.useRef<Webcam>(null);
+  const [webcamRef, videoConstraints, textOcr, base64Img, Recognition] = useRecognition()
 
-  const videoConstraints = {
-    width: 640,
-    height: 360,
-    facingMode: "environment"
-  };
-  const capture = React.useCallback(
-    async () => {
-      const imageSrc = webcamRef.current?.getScreenshot();
-      if (imageSrc) {
-        setBase64Img(imageSrc)
-        setTextOcr('')
-        tryOcr(imageSrc)
-      }
-    },
-    [webcamRef]
-  );
-  const recognition = React.useCallback(
-    async () => {
-      // アップロード時のファイル名を作成
-      let today = new Date();
- 
-      let year = today.getFullYear();
-      let month = today.getMonth() + 1;
-      let date = today.getDate();
-      let hour = today.getHours();
-      let min = today.getMinutes();
-      let second = today.getSeconds()
-      const fileName = `${year}_${month}_${date}_${hour}_${min}_${second}.png`;
-      const client = new S3Client({
-        region: process.env.NEXT_PUBLIC_REGION,
-        credentials: {
-          accessKeyId: `${process.env.NEXT_PUBLIC_ACCESS_KEY_ID}`,
-          secretAccessKey: `${process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY}`,
-        },
-      });
-      const params = {
-        Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
-        Key: fileName,
-        Body: Buffer.from(base64Img.replace(/^data:\w+\/\w+;base64,/, ''), 'base64'),
-      };
-      try {
-        const command = new PutObjectCommand(params);
-         await client.send(command);
-        
-        setBase64Img(null)
-        setTextOcr("")
-        // TODO : 簡単なトースト通知を行うようにする
-        alert("upload complete")
-      } catch (error) {
-        // TODO : 簡単なトースト通知を行うようにする
-        console.error('画像アップロードエラー:', error);
-        alert(error)
-      }
-    },
-    [base64Img]
-  );
-  const tryOcr = async (buffer: string) => {
-    const worker: Promise<Worker> = createWorker({
-      logger: m => console.log(m)
-    })
-    await (await worker).load();
-    await (await worker).loadLanguage('eng');
-    await (await worker).initialize('eng');
-    await (await worker).setParameters({
-      tessedit_ocr_engine_mode: Tesseract.OEM.TESSERACT_ONLY,
-      tessedit_char_whitelist: '0123456789',
-      tessedit_pageseg_mode: Tesseract.PSM.SINGLE_WORD
-    });
-    const { data: { text } } = await (await worker).recognize(buffer);
-    await (await worker).terminate();
-    setTextOcr(text)
-
-  }
-  const onClickDelete = () => {
-    setBase64Img(null)
-    setTextOcr("")
-  }
   return (
     <>
       <Link href="/">
@@ -137,9 +56,9 @@ export default function Recognition() {
         <Grid item xs={12} mt={1}>
           <Card>
             <CardContent>
-              <button onClick={capture}>Capture</button>
-              <Button variant="contained" color="error" onClick={onClickDelete} startIcon={<DeleteForeverIcon />}></Button>
-              <button onClick={recognition}>recognition</button>
+              <button onClick={Recognition.Capture}>Capture</button>
+              <Button variant="contained" color="error" onClick={Recognition.Reset} startIcon={<DeleteForeverIcon />}></Button>
+              <button onClick={Recognition.Upload}>recognition</button>
             </CardContent>
           </Card>
         </Grid>
