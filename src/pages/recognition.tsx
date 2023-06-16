@@ -34,14 +34,14 @@ export default function Recognition() {
           </Card>
         </Grid>
         <Grid item xs={12} mt={1}>
-          <Card>
+          {/* <Card>
             <CardContent>
               <CardTitle title="解析結果数字" />
               {
                 textOcr === "" ? <Skeleton animation="wave" /> : textOcr
               }
             </CardContent>
-          </Card>
+          </Card> */}
         </Grid>
         <Grid item xs={12} mt={1}>
           <Card>
