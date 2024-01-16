@@ -25,3 +25,14 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=dev
     tty: true
+  nginx:
+    image: nginx
+    depends_on:
+      - backend
+    container_name: nginx
+    ports:
+        - '80:80'
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
