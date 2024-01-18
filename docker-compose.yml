@@ -25,6 +25,19 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=dev
     tty: true
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    restart: always
+    volumes:
+      - ./backend/db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./backend/db/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: dev
+    ports:
+      - "3400:3306"
+    tty: true
   nginx:
     image: nginx
     depends_on:

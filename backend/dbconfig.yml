@@ -1,0 +1,10 @@
+###########
+#
+# sqlmigrate設定ファイル
+#
+###########
+development:
+    dialect: mysql 
+    datasource: ${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DATABASE}?parseTime=true
+    # migrationsファイルを作成/実行する場所
+    dir: ./migrations
