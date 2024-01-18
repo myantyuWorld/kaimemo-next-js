@@ -30,7 +30,12 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.GET("/", hello)
+	// memo画面
 	e.GET("/memo", memoHandler.HandlerGet())
+	e.POST("/memo", memoHandler.HandlerGet())
+	e.DELETE("/memo", memoHandler.HandlerGet())
+	// 家計簿画面
+	// TBD
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
