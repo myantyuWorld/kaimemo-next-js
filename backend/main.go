@@ -2,6 +2,9 @@ package main
 
 import (
 	"backend/pkg/infra"
+	"backend/pkg/infra/persistence"
+	"backend/pkg/interfaces/handler"
+	"backend/pkg/usecase"
 	"log"
 	"net/http"
 
@@ -10,9 +13,6 @@ import (
 )
 
 func main() {
-	e := echo.New()
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
 
 	db, err := infra.ConnRDB()
 	if err != nil {
@@ -21,7 +21,16 @@ func main() {
 	}
 	log.Print(db)
 
+	memoUsecase := usecase.NewMemoUsecase(
+		persistence.NewMemoPersistence(),
+	)
+	memoHandler := handler.NewHandler(memoUsecase, *db)
+
+	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	e.GET("/", hello)
+	e.GET("/memo", memoHandler.HandlerGet())
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
