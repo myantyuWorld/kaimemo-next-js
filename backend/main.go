@@ -1,6 +1,8 @@
 package main
 
 import (
+	"backend/pkg/infra"
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -8,21 +10,22 @@ import (
 )
 
 func main() {
-	// インスタンスを作成
 	e := echo.New()
-
-	// ミドルウェアを設定
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// ルートを設定
+	db, err := infra.ConnRDB()
+	if err != nil {
+		log.Fatal("DB接続失敗")
+		log.Fatal(err)
+	}
+	log.Print(db)
+
 	e.GET("/", hello)
 
-	// サーバーをポート番号1323で起動
 	e.Logger.Fatal(e.Start(":8080"))
 }
 
-// ハンドラーを定義
 func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
