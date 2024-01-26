@@ -7,3 +7,4 @@ type Memo struct {
 	Content      string
 	Deleted      uint64
 }
+type MemoList []*Memo

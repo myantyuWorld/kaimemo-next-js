@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"backend/pkg/domain/model/response"
 	"backend/pkg/infra"
 	"backend/pkg/usecase"
 	"net/http"
@@ -27,9 +28,14 @@ func (*memoHandler) HandleDelete() echo.HandlerFunc {
 }
 
 // HandlerGet implements MemoHandler.
-func (*memoHandler) HandlerGet() echo.HandlerFunc {
+func (handler *memoHandler) HandlerGet() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		return c.String(http.StatusOK, "get memo")
+		var memoList *response.MemoList
+		var err error
+		if memoList, err = handler.memoUsecase.Get(&handler.db); err != nil {
+			return c.JSON(http.StatusInternalServerError, "error")
+		}
+		return c.JSON(http.StatusOK, memoList)
 	}
 }
 

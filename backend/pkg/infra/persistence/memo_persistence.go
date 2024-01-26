@@ -5,6 +5,7 @@ import (
 	"backend/pkg/domain/repository"
 	"backend/pkg/infra"
 	"errors"
+	"log"
 )
 
 type memoPersistence struct{}
@@ -28,7 +29,7 @@ func (*memoPersistence) Get(db *infra.RDB) ([]*dbmodel.Memos, error) {
 	var memos []*dbmodel.Memos
 	result := db.Find(&memos)
 	if result.RowsAffected == 0 {
-		return nil, errors.New("データが0件")
+		log.Print("data not found!")
 	}
 
 	return memos, nil

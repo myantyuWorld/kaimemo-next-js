@@ -32,8 +32,8 @@ func main() {
 	e.GET("/", hello)
 	// memo画面
 	e.GET("/memo", memoHandler.HandlerGet())
-	e.POST("/memo", memoHandler.HandlerGet())
-	e.DELETE("/memo", memoHandler.HandlerGet())
+	e.POST("/memo", memoHandler.HandlerPost())
+	e.DELETE("/memo", memoHandler.HandleDelete())
 	// 家計簿画面
 	// TBD
 
