@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 -- SQLは実行できない
--- INSERT categories VALUE (1, "食費", NOW());
--- INSERT categories VALUE (2, "日用品", NOW());
+-- INSERT categories VALUE (1, "food", NOW());
+-- INSERT categories VALUE (2, "necesary", NOW());
 -- +migrate Down
 DROP TABLE IF EXISTS categories;
